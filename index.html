@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Modern Progressive Enhancement</title>
+
+    <meta name="description" content="Welcome to the future, bro">
+    <meta name="author" content="Stu Cox">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/stucox.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/googlecode.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="reveal">
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+    <h1 style="font-variant:small-caps">Modern Progressive Enhancement</h1>
+    <p>
+        <a href="http://www.stucox.com/">Stu Cox</a> / <a href="http://twitter.com/stucoxmedia">@stucoxmedia</a>
+    </p>
+    <p><span class="alt2">#lwsprogid</span> | <span class="alt2">21st October 2013</span> | <span class="alt2">London, UK</span></p>
+</section>
+
+<!--
+## Outline
+
+* Anatomy of PE
+    * Core features vs enhancements
+    * Minimum spec
+    * Features & dependencies
+    * Detect, then:
+        * Gate
+        * Fork
+        * Polyfill
+    * If undetectable, support both outcomes simultaneously
+* Examples
+    * …
+* Workflow
+    * Receive designs
+    *
+
+## Slides
+
+* Title slide
+* The Problem:
+    * Want the most users to have great experience with our web thing
+    * Users using different devices and browsers with different capabilities
+    * Different features, bugs and APIs
+* PE is a strategy for supporting as many users as possible
+* Old skool PE: 3 layers – semantic HTML, CSS, JS
+    * Peanut analog
+* Tiers: HTML only, HTML + CSS, HTML + CSS + JS
+* Nowadays, hundreds of browser versions / devices
+    * Feature support grid
+*
+-->
+
+<section>
+    <h1 class="alt2">Kill Your Preconceptions</h1>
+    <br>
+    <h2>PE <code>!=</code> “works without JS”</h2>
+    <br>
+    <h2>PE <em>can</em> apply to JS-based web apps</h2>
+</section>
+
+<section>
+    <section data-transition="fade" data-transition-speed="slow">
+        <h3>We want <span class="alt">the most users</span> to have <span class="alt">the best experience</span></h3>
+        <img src="img/user-heart.svg" class="user-heart">
+    </section>
+
+    <section class="fragment" data-transition="fade" data-transition-speed="slow">
+        <h3>But they all have <span class="alt">different browsers</span>, <span class="alt">devices</span> and <span class="alt">accessibility needs</span></h3>
+        <img src="img/user-devices.svg" class="user-devices">
+    </section>
+
+    <section data-transition="fade" data-transition-speed="slow">
+        <div class="fragment" style="width:33%; text-align:center; float:left; padding:0 1em">
+            <img src="img/browser.svg" class="browser-icon">
+            <h3><span class="alt2" style="font-size:200%">86</span> browsers</h3>
+            <small>incl. versions, in use by 95% of users</small>
+        </div>
+        <div class="fragment" style="width:33%; text-align:center; float:left; padding:0 1em">
+            <img src="img/device.svg" class="device-icon">
+            <h3><span class="alt2" style="font-size:200%">7000</span> devices</h3>
+            <small>seen by Facebook every day</small>
+        </div>
+        <div class="fragment" style="width:33%; text-align:center; float:left; padding:0 1em">
+            <img src="img/user.svg" class="user-icon">
+            <h3><span class="alt2" style="font-size:200%">? ? ? </span> humans</h3>
+            <small>in your target market</small>
+        </div>
+    </section>
+
+    <section>
+        <h2>“User” in the broad sense:</h2>
+        <img src="img/trinity.svg" class="trinity">
+        <h3><span class="alt">Browser</span> + <span class="alt">device</span> + <span class="alt">human</span> <span class="alt2">together</span></h3>
+    </section>
+</section>
+
+<section>
+    <p>Support for modern browser features... from above</p>
+    <small>Source: <cite><a href="http://caniuse.com">caniuse.com</a></cite></small>
+    <div data-include="caniuse-table.html"></div>
+</section>
+
+<section>
+    <h2>The web <span class="alt">IS</span> this variaton.</h2>
+    <h3>Embrace it.</h3>
+</section>
+
+<section>
+    <h2>
+        <span class="alt">Progressive Enhancement</span> is the best strategy for achieving broad compatibility.
+        <p></p>
+        <p><small>&lt;/opinion&gt;</small></p>
+    </h2>
+</section>
+
+<section>
+    <h2>
+        It’s about providing <span class="alt">different experiences</span>
+        to <span class="alt">different users</span><br>
+        based on their <span class="alt2">capabilities</span>.
+    </h2>
+</section>
+
+<section>
+    <h2>A.K.A. <span class="alt">TAFEE</span></h2>
+    <h3>“Tiered Adaptive Front End Experiences”</h3>
+    <p><a href="http://www.paulirish.com/2011/tiered-adaptive-front-end-experiences/">paulirish.com/2011/tiered-adaptive-front-end-experiences/</a></p>
+    <h3><br>Put simply: focus on making it good for everyone, rather than the same for everyone.</h3>
+</section>
+
+<section>
+    <h2>What alternatives are there?</h2>
+    <div style="display:inline-block; text-align:left">
+        <h3 class="alt">User profiling</h3>
+        <p>Specific users; target each individually</p>
+        <br>
+        <h3 class="alt">Best practice</h3>
+        <p>Take advice from some person on the internet and hope for the best</p>
+    </div>
+    <br><br>
+    <h3 class="alt2" style="max-width:20em; margin-left:auto; margin-right:auto">Today, most projects combine both of these with some loose PE</h3>
+</section>
+
+<section>
+    <h2 class="alt">A solid PE approach can:</h2>
+    <h3>
+        <ul>
+            <li>Reach more users – way beyond your testing</li>
+            <li>Reduce cross-platform testing time</li>
+            <li>Improve code re-use &amp; keep things DRY</li>
+            <li>Enable you to adapt to change</li>
+            <li>Future-proof</li>
+        </ul>
+    </h3>
+</section>
+
+<section>
+    <h1>“Old Skool” Progressive Enhancement</h1>
+</section>
+
+<section>
+    <h2>HTML + CSS + JS: <span class="alt2">3 tiers</span></h2>
+    <img src="img/m-m.jpg" style="width:28em; max-width:100%">
+</section>
+
+<section>
+    <section data-transition="none">
+        <h1 class="alt">Old Skool PE:</h1>
+        <h2 class="fragment alt2">Content</h2>
+        <h2 class="fragment">depends on</h2>
+        <h2 class="fragment alt2">
+            <p>Ability to present HTML</p>
+            <p>&nbsp;</p>
+        </h2>
+    </section>
+
+    <section data-transition="none">
+        <h1 class="alt">Old Skool PE:</h1>
+        <h2 class="fragment alt2">Styling</h2>
+        <h2 class="fragment">depends on</h2>
+        <h2 class="fragment alt2">
+            <p>Ability to render CSS</p>
+            <p>Ability to experience CSS</p>
+        </h2>
+    </section>
+
+    <section data-transition="none">
+        <h1 class="alt">Old Skool PE:</h1>
+        <h2 class="fragment alt2">Behaviour</h2>
+        <h2 class="fragment">depends on</h2>
+        <h2 class="fragment alt2">
+            <p>Ability to execute JavaScript</p>
+            <p>&nbsp;</p>
+        </h2>
+    </section>
+</section>
+
+<section>
+    <h1>“Modern” Progressive Enhancement</h1>
+</section>
+
+<section>
+    <h1 class="alt">Generalised view of PE:</h1>
+    <h2 class="alt2">Features</h2>
+    <p>have</p>
+    <h2 class="alt2">Dependencies</h2>
+    <p>on browser, device and human</p>
+    <h2 class="alt2">Capabilities</h2>
+</section>
+
+<section>
+    <section data-transition="fade">
+        <h2 style="max-width:13em; margin-left:auto; margin-right:auto;">
+            If a user lacks a capability your <span class="alt">web thing</span> depends on, they <span class="alt2">can’t experience it</span>.
+        </h2>
+    </section>
+
+    <section data-transition="fade">
+        <p class="alt2">More to the point:</p>
+        <h2 style="max-width:13em; margin-left:auto; margin-right:auto;">
+            If your web thing depends on a capability not every user has, you’ll probably <span class="alt">alienate some users</span>.
+        </h2>
+    </section>
+</section>
+
+<section>
+    <section data-transition="none">
+        <h2>A slightly dodgy analogy</h2>
+        <img src="img/capability-tree.svg" class="capability-tree">
+    </section>
+
+    <section data-transition="none">
+        <h2>A slightly dodgy analogy</h2>
+        <img src="img/capability-tree-labelled.svg" class="capability-tree">
+    </section>
+</section>
+
+<section>
+    <h2 style="max-width:13em; margin-left:auto; margin-right:auto;">
+        The <span class="alt">differences between users*</span> can be expressed in terms of the <span class="alt2">differences in their capabilities</span>.
+    </h2>
+    <p>&nbsp;</p>
+    <p>* browser + device + human</p>
+</section>
+
+<section>
+    <section data-transition="none">
+        <h2>LOADS of possible capabilities:</h2>
+        <div style="width:50%; float:left">
+            <h3 class="alt">Browsers</h3>
+            <img src="img/browser.svg" class="browser-icon">
+        </div>
+        <div style="width:50%; float:left">
+            <ul class="capability-list">
+                <li>HTML5 features</li>
+                <li>CSS3 features</li>
+                <li>JS features &amp; APIs</li>
+                <li>Plugins/extensions</li>
+                <li>Bugs <small style="font-style:italic">(incapabilities)</small></li>
+            </ul>
+        </div>
+    </section>
+
+    <section data-transition="none">
+        <h2>LOADS of possible capabilities:</h2>
+        <div style="width:50%; float:left">
+            <h3 class="alt">Devices</h3>
+            <img src="img/device.svg" class="device-icon">
+        </div>
+        <div style="width:50%; float:left">
+            <ul class="capability-list">
+                <li>Screen size</li>
+                <li>Input/output devices</li>
+                <li>Sensors</li>
+                <li>Network quality</li>
+                <li>Portability</li>
+            </ul>
+        </div>
+    </section>
+
+    <section data-transition="none">
+        <h2>LOADS of possible capabilities:</h2>
+        <div style="width:50%; float:left">
+            <h3 class="alt">Humans</h3>
+            <img src="img/user.svg" class="user-icon">
+        </div>
+        <div style="width:50%; float:left">
+            <ul class="capability-list">
+                <li>Eye sight</li>
+                <li>Hearing</li>
+                <li>Coordination</li>
+                <li>Tech knowledge</li>
+                <li>Languages</li>
+            </ul>
+        </div>
+    </section>
+</section>
+
+<section>
+    <p>The ingredients of </p>
+    <h2 class="alt">Modern Progressive Enhancement</h2>
+    <br>
+    <h3>
+        <ul>
+            <li>Separation of core vs enhancements</li>
+            <li>Modular dependencies</li>
+            <li>Atomic enhancements via feature detection</li>
+        </ul>
+    </h3>
+</section>
+
+<section>
+    <h1>A Modern Progressive Enhancement Workflow</h1>
+</section>
+
+<section>
+    <section>
+        <h1>1.</h1>
+        <h2>Define your <span class="alt">core functionality</span>.</h2>
+        <p>The things <em>every</em> user should experience.</p>
+    </section>
+
+    <section>
+        <h1>2.</h1>
+        <h2>Derive your <span class="alt">core dependencies</span>.</h2>
+        <p>The capabilities required to experience your core functionality.</p>
+        <p class="alt2">
+            This might include JavaScript... come on, it’s
+            <script>document.write((new Date).getFullYear());</script>!
+        </p>
+    </section>
+
+    <section>
+        <h1>3.</h1>
+        <h2>Compare &amp; revise these against your <span class="alt">target market</span>.</h2>
+        <p><em>Every</em> user you’re expecting to target should have these capabilities.</p>
+    </section>
+</section>
+
+<section>
+    <h1 class="alt">Build it.</h1>
+    <h3>You now have a product.</h3>
+    <p>Well done.</p>
+</section>
+
+<section>
+    <h2>Everything else is an <span class="alt">enhancement</span>.</h2>
+    <p>Ahh, I recognise that word!</p>
+    <div class="fragment">
+        <h3 class="alt"><br>Accept that some users won’t experience these things.</h3>
+        <p class="alt2">Make sure your client accepts this too.</p>
+    </div>
+</section>
+
+<section>
+    <section>
+        <h1>4.</h1>
+        <h2>Define each <span class="alt">enhancement</span>.</h2>
+        <h3 class="alt2"><em>Go wild!</em></h3>
+    </section>
+
+    <section>
+        <h1>5.</h1>
+        <h2>Derive your <span class="alt">enhancement dependencies</span>.</h2>
+        <p>The capabilities required to experience each enhancement.</p>
+    </section>
+
+    <section>
+        <h1>6.</h1>
+        <h2 class="alt">Decision time.</h2>
+    </section>
+
+</section>
+
+<section>
+    <h2>So you’ve chosen the <span class="alt">ideal technologies</span> to implement your enhancement, but <span class="alt2">not every browser supports them</span>...</h2>
+</section>
+
+<section>
+    <h2 class="alt">Choose an path:</h2>
+    <h3>
+        <ol style="list-style-type: upper-alpha">
+            <li>Only deliver enhancement if capabilities are met</li>
+            <li>Polyfill / fallback</li>
+            <li>Implement it another way <small>(cop-out!)</small></li>
+        </ol>
+    </h3>
+</section>
+
+<section>
+    <section>
+        <h1>A.</h1>
+        <h2 class="alt">Only deliver enhancement if capabilities are met.</h2>
+        <p>The path of purists. TAFEE, yeah?</p>
+        <br>
+        <h3>Best for performance.</h3>
+        <h3>Easiest to implement and maintain.</h3>
+        <p class="alt2">Just a client left to persuade...</p>
+    </section>
+
+    <section>
+        <h2>Enhancements should be <span class="alt">atomic</span>:</h2>
+        <h3>Either applied fully, or not at all</h3>
+        <p>Otherwise some users may have a broken experience</p>
+    </section>
+
+    <section>
+        <h2 class="alt">TAFEE process:</h2>
+        <h3>
+            <ol>
+                <li>Feature-detect capabilities</li>
+                <li>If capabilities are present, implement</li>
+                <li>Otherwise, <span class="alt2">do nothing</span></li>
+            </ol>
+        </h3>
+    </section>
+
+    <section>
+        <h2 class="alt">Feature detection</h2>
+        <h3 style="text-align:left">One dependency:</h3>
+        <pre><code data-trim class="language-javascript">
+if ('geolocation' in navigator) {
+    // Implement / initialise enhancement
+}
+// No `else`!
+        </code></pre>
+        <br>
+        <h3 style="text-align:left">Multiple dependencies, using <a href="http://modernizr.com">Modernizr</a>:</h3>
+        <pre><code data-trim class="language-javascript">
+if (Modernizr.csstransitions &amp;&amp;
+    Modernizr.svg &amp;&amp;
+    Modernizr.rgba) {
+    // Implement / initialise enhancement
+}
+// No `else`!
+        </code></pre>
+    </section>
+
+    <section>
+        <h2>Well-suited to modular code</h2>
+        <h3 style="text-align:left"><a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> module pattern:</h3>
+        <pre><code data-trim class="language-javascript">
+(function () { if ('geolocation' in navigator) {
+    // Whole module implementation wrapped
+}}());
+        </code></pre>
+        <br>
+        <h3 style="text-align:left"><a href="http://requirejs.org/docs/whyamd.html">AMD</a> pattern:</h3>
+        <pre><code data-trim class="language-javascript">
+define(['dep1', 'dep2'], function (dep1, dep2) {
+    if ('geolocation' in navigator) {
+        // Whole module implementation wrapped
+    }
+});
+        </code></pre>
+    </section>
+
+    <section>
+        <p>Future dreamin’:</p>
+        <h2>require-modernizr</h2>
+        <h3 style="text-align:left">WIP <a href="http://requirejs.org/">RequireJS</a> plugin which allows this:</h3>
+        <pre><code data-trim class="language-javascript">
+define(['dep1', 'dep2', 'Modernizr!geolocation'],
+function (dep1, dep2, geolocation) {
+    // Module only executed if Geolocation API
+    // supported;
+    // `geolocation == Modernizr.geolocation`
+});
+        </code></pre>
+
+        <p>Contribute! <a href="http://github.com/stucox/require-modernizr">github.com/stucox/require-modernizr</a></p>
+    </section>
+
+    <section>
+        <h2>Not all features can be detected</h2>
+        <p><a href="https://github.com/Modernizr/Modernizr/wiki/Undetectables">github.com/Modernizr/Modernizr/wiki/Undetectables</a></p>
+        <br>
+        <h3>Device feature detection is flaky</h3>
+        <p><a href="http://www.stucox.com/blog/you-cant-detect-a-touchscreen/">stucox.com/blog/you-cant-detect-a-touchscreen</a></p>
+        <br>
+        <h3>Can’t detect user capabilities</h3>
+        <p>But you can ask them.</p>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h1>B.</h1>
+        <h2 class="alt">Polyfill / Fallback</h2>
+        <br>
+        <h3>Polyfills available for many browser features</h3>
+        <p><a href="github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills</a></p>
+        <h3>
+            But they can have a serious performance impact
+            <br>
+            and often aren’t feature-complete
+        </h3>
+        <h3 class="alt2"><em>Use sparingly</em></h3>
+    </section>
+
+    <section>
+        <h3 style="text-align:left">Conditional execution:</h3>
+        <pre><code data-trim class="language-javascript">
+if ('geolocation' in navigator) {
+    // Implement / initialise enhancement
+}
+else {
+    // Initialise polyfill
+}
+        </code></pre>
+        <br>
+        <h3 style="text-align:left">Conditional loading:</h3>
+        <pre><code data-trim class="language-javascript">
+if ('geolocation' in navigator) {
+    // Implement / initialise enhancement
+}
+else {
+    // Load polyfill
+}
+        </code></pre>
+    </section>
+</section>
+
+<section>
+    <h1>C.</h1>
+    <h2 class="alt">Implement it another way</h2>
+    <h3>With fewer dependencies, or using better-supported capabilities.</h3>
+</section>
+
+<section>
+    <h2 class="alt">Microenhancements</h2>
+    <h3>Small things which don’t need detection</h3>
+    <h3>e.g. CSS3 frills:</h3>
+        <pre><code data-trim class="language-css">
+.module {
+    /* Naturally atomic */
+    box-shadow: 1px 1px 1px #666;
+}
+        </code></pre>
+</section>
+
+<section>
+    <h1>Buzzwords</h1>
+    <p>Because I haven’t used enough yet.</p>
+</section>
+
+<section>
+    <h2><span class="alt">Responsive Design</span> is Progressive Enhancement</h2>
+    <div style="text-align:left; display:inline-block">
+        <h3><div class="alt2">Feature(s):</div>
+            <ul>
+                <li>Displaying more content</li>
+            </ul>
+        </h3>
+        <h3><div class="alt2">Capability(s):</div>
+        <ul>
+            <li>Browser supporting media queries</li>
+            <li>Device screen larger than <em>X</em></li>
+            <li>User being able to experience layout difference</li>
+        </ul>
+    </div>
+    <p>Using <code>min-width</code> media queries for feature detection</p>
+</section>
+
+<section>
+    <h2><span class="alt">Mobile-First</span> is Progressive Enhancement</h2>
+    <br>
+    <h3>Allow core features to depend on the capabilities of a <span class="alt2">typical mobile device</span>, then add enhancements for devices which offer greater capabilities</h3>
+    <br>
+    <h3>e.g. larger screen size, better pointing precision (mouse), better network connection</h3>
+</section>
+
+<section>
+    <h2><span class="alt">Graceful degredation</span> = atomic enhancements</h2>
+    <br>
+    <h3>Any of the capabilities on which it depends can be removed, without leaving it in a broken state.</h3>
+</section>
+
+<section>
+    <h2 style="font-family:cursive">Fin.</h2>
+</section>
+
+<!-- Old -->
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script src="js/jquery.min.js"></script>
+
+<script src="components/underscore/underscore-min.js"></script>
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
